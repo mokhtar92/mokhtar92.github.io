@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+	<style type="text/css">
+	*, *:before, *:after {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	body {
+		font-family: 'Nunito', sans-serif;
+		color: #384047;
+		background-color: grey;
+	}
+
+	form {
+		max-width: 350px;
+		margin: 10px auto;
+		padding: 10px 20px;
+		background: #f4f7f8;
+		border-radius: 8px;
+	}
+
+	div {
+		max-width: 350px;
+		margin: 10px auto;
+		padding: 10px 20px;
+		background: #f4f7f8;
+		border-radius: 150px;
+	}
+
+	h1 {
+		margin-top: 50px;
+		font-family: verdana;
+		color: grey;
+	}
+
+	h2 {
+		font-size: 150px;
+		margin: 29px 0 10px 0;
+		text-align: center;
+	}
+
+	h3 {
+		color: white;
+		font-family: verdana;
+	}
+
+	p {
+		font-family: verdana;
+		color: grey;
+	}
+
+	button {
+		color: #FFF;
+		background-color: #4bc970;
+		font-size: 18px;
+		text-align: center;
+		font-style: normal;
+		border-radius: 20px;
+		width: 50%;
+		height: 100%;
+		border: 1px solid #3ac162;
+		border-width: 1px 1px 3px;
+		box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+		margin-bottom: 10px;
+	}
+
+	fieldset {
+		margin-bottom: 20px;
+		border: none;
+	}
+
+	@media screen and (min-width: 450px) {
+
+		form {
+			max-width: 450px;
+		}
+
+	}
+
+</style>
+
+<script type="text/javascript">
+
+	var randNum;
+	var totoalScore = 0;
+	var allAttempts = 0;
+	var pressedKey;
+
+	var myInterval;
+
+	var flagStart = true;
+	var flagDouble = true;
+
+
+	function myScore(event) {
+		var myKey = event.key;
+
+		if (flagDouble) {
+			flagDouble = false;
+
+			if (myKey == randNum) {
+				totoalScore++;
+				document.getElementById("ba_color").style.backgroundColor = "MediumSeaGreen";
+
+			} else{
+				document.getElementById("ba_color").style.backgroundColor = "Tomato";
+			}
+		}
+	}
+
+	function myStart() {
+		if (flagStart) {
+			totoalScore = 0;
+			allAttempts = 0;
+			myInterval = setInterval(displayRandom, 870);
+			flagStart = false;
+		}
+		document.getElementById("disp_result").innerHTML = 
+		"";
+	}
+
+	function myEnd() {
+
+		flagStart = true;
+
+		clearInterval(myInterval);
+		document.getElementById("number_display").innerHTML = 
+		"";
+		document.getElementById("disp_result").innerHTML = 
+		"You got " + totoalScore + " of " + allAttempts + " Attempts";
+
+	}
+
+	function displayRandom(){
+
+		flagDouble = true;
+
+		document.getElementById("ba_color").style.backgroundColor = "powderblue";
+		randNum = Math.floor((Math.random())*10);
+		allAttempts++;
+		document.getElementById("number_display").innerHTML = randNum;
+	}
+</script>
+
+</head>
+
+<body>
+	<div align="center">
+
+		<h1>Speed Game</h1>
+		<p >Press START game and try to press the correct number on keyboard then press END to see your score.</p>
+		
+		<br>
+
+		<div style="width: 250px; 
+		height: 250px; background-color: powderblue" id="ba_color">
+
+		<h2 type="text" id="number_display"></h2>
+	</div>
+
+	<br><br>
+
+	<button onclick="myStart();" onkeydown="myScore(event);">Start Game</button>
+
+	<br><br>
+
+	<button onclick="myEnd();">End Game</button>
+</div>
+
+<h3 id="disp_result" style="text-align: center;"></h3>
+</body>
+</html>
